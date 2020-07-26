@@ -11,10 +11,8 @@ protoc.main((
     '-Iproto',
     '--python_out=.',
     '--grpc_python_out=.',
-    'proto/base.proto',
-    'proto/type.proto',
-    'proto/stream.proto',
-    'proto/dataset.proto',
+    'proto/marmot_type.proto',
+    'proto/marmot_dataset.proto',
 ))
 
 if __name__ == '__main__':

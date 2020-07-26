@@ -1,53 +1,54 @@
 
 import grpc
-import base_pb2
-import dataset_pb2
-import dataset_pb2_grpc
+import marmot_type_pb2 as type_pb
+import marmot_dataset_pb2 as dataset_pb
+import marmot_dataset_pb2_grpc as dataset_grpc
 import logging
-from marmot.data_types import *
-import marmot.marmot_base as marmot
-import marmot.record as record
+from marmot.types import Envelope, Coordinate
+from marmot.proto_utils import handle_pb_error, from_value_proto, handle_string_response
+from marmot.client import dataset_server_stub
+from marmot.record import RecordSchema, Record
 
 logger = logging.getLogger('dric.dataset')
 
 def get_dataset(ds_id):
-    req = base_pb2.StringProto(value=ds_id)
-    resp = marmot.dataset_server_stub().getDataSetInfo(req)
+    req = type_pb.StringProto(value=ds_id)
+    resp = dataset_server_stub().getDataSetInfo(req)
     return handle_dataset_info(resp)
     
 def get_dataset_all():
-    req = base_pb2.VoidProto()
-    for resp in marmot.dataset_server_stub().getDataSetInfoAll(req):
+    req = type_pb.VoidProto()
+    for resp in dataset_server_stub().getDataSetInfoAll(req):
         yield handle_dataset_info(resp)
         
 def get_dataset_all_in_dir(start, recur):
-    req = dataset_pb2.DirectoryTraverseRequest(directory=start, recursive=recur)
-    for resp in marmot.dataset_server_stub().getDataSetInfoAllInDir(req):
+    req = dataset_pb.DirectoryTraverseRequest(directory=start, recursive=recur)
+    for resp in dataset_server_stub().getDataSetInfoAllInDir(req):
         yield handle_dataset_info(resp)
 
 def get_dir_all():
-    req = base_pb2.VoidProto()
-    for resp in marmot.dataset_server_stub().getDirAll(req):
-        yield marmot.handle_string_response(resp)
+    req = type_pb.VoidProto()
+    for resp in dataset_server_stub().getDirAll(req):
+        yield handle_string_response(resp)
 
 def get_sub_dir_all(start, recur):
-    req = dataset_pb2.DirectoryTraverseRequest(directory=start, recursive=recur)
-    for resp in marmot.dataset_server_stub().getSubDirAll(req):
-        yield marmot.handle_string_response(resp)
+    req = dataset_pb.DirectoryTraverseRequest(directory=start, recursive=recur)
+    for resp in dataset_server_stub().getSubDirAll(req):
+        yield handle_string_response(resp)
 
 def read_dataset(ds_id, schema=None):
     if schema is None:
         ds = get_dataset(ds_id)
         schema = ds.schema
 
-    req = base_pb2.StringProto(value = ds_id)
-    return RecordStream(schema, marmot.dataset_server_stub().readDataSet2(req))
+    req = type_pb.StringProto(value = ds_id)
+    return RecordStream(schema, dataset_server_stub().readDataSet2(req))
 
 class DataSet:
     def __init__(self, ds_info):
         self.ds_info = ds_info
         schema_id = ds_info.record_schema
-        self.schema = record.RecordSchema.from_type_id(schema_id)
+        self.schema = RecordSchema.from_type_id(schema_id)
 
     def __getattr__(self, name):
         if name == 'id':
@@ -80,20 +81,20 @@ class RecordStream:
     def __iter__(self):
         for rec_resp in self.rec_iter:
             values = self.__handle_record_response(rec_resp, self.schema)
-            yield record.Record(self.schema, values)
+            yield Record(self.schema, values)
 
     def __handle_record_response(self, resp, schema):
         case = resp.WhichOneof('either')
         if case == 'error':
-            marmot.__handle_error(resp.error)
+            handle_pb_error(resp.error)
         else:
             values = resp.record.column
-            return tuple(marmot.from_value_proto(values[col.ordinal]) for col in schema.columns)
+            return tuple(from_value_proto(values[col.ordinal]) for col in schema.columns)
 
 def handle_dataset_info(resp):
     case = resp.WhichOneof('either')
     if case == 'error':
-        marmot.__handle_error(resp.error)
+        handle_pb_error(resp.error)
     else:
         return DataSet(resp.dataset_info)
 

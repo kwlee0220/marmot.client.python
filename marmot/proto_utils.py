@@ -1,38 +1,12 @@
-
-
 import grpc
-import base_pb2
-import dataset_pb2_grpc
-from marmot.data_types import *
+import marmot_type_pb2 as type_pb
 
-__channel = None
-__dataset_server_stub = None
-
-def connect(host, port):
-    target = '{host}:{port}'.format(host=host, port=port)
-    global __channel
-    __channel = grpc.insecure_channel(target)
-    global __dataset_server_stub
-    __dataset_server_stub = dataset_pb2_grpc.DataSetServiceStub(__channel)
-
-def disconnect():
-    if __channel:
-        __channel.close()
-
-def marmot_channel():
-    if __channel:
-        return __channel
+def get_either(proto, case_value):
+    if getattr(proto, "has_%s" % case_value):
+        return getattr(proto, case_value)
     else:
-        raise NotConnected
+        return None
 
-def dataset_server_stub():
-    if __dataset_server_stub:
-        return __dataset_server_stub
-    else:
-        raise NotConnected
-
-class NotConnected(Exception):
-    pass
 class InvalidArgument(Exception):
     def __init__(self, details):
         self.details = details
@@ -51,7 +25,7 @@ class Cancelled(Exception):
 class Timeout(Exception):
     def __init__(self, details):
         self.details = details
-class IOError(Exception):
+class IoError(Exception):
     def __init__(self, details):
         self.details = details
 class GrpcStatus(Exception):
@@ -61,25 +35,25 @@ class Internal(Exception):
     def __init__(self, details):
         self.details = details
 
-def __handle_error(error):
+def handle_pb_error(error):
     code = error.code
-    if code == base_pb2.ErrorProto.Code.NOT_FOUND:
+    if code == type_pb.ErrorProto.Code.NOT_FOUND:
         raise NotFound(error.details)
-    elif code == base_pb2.ErrorProto.Code.ALREADY_EXISTS:
+    elif code == type_pb.ErrorProto.Code.ALREADY_EXISTS:
         raise AlreadyExists(error.details)
-    elif code == base_pb2.ErrorProto.Code.INVALID_ARGUMENT:
+    elif code == type_pb.ErrorProto.Code.INVALID_ARGUMENT:
         raise InvalidArgument(error.details)
-    elif code == base_pb2.ErrorProto.Code.INVALID_STATE:
+    elif code == type_pb.ErrorProto.Code.INVALID_STATE:
         raise InvalidState(error.details)
-    elif code == base_pb2.ErrorProto.Code.CANCELLED:
+    elif code == type_pb.ErrorProto.Code.CANCELLED:
         raise Cancelled(error.details)
-    elif code == base_pb2.ErrorProto.Code.TIMEOUT:
+    elif code == type_pb.ErrorProto.Code.TIMEOUT:
         raise Timeout(error.details)
-    elif code == base_pb2.ErrorProto.Code.IO_ERROR:
-        raise IOError(error.details)
-    elif code == base_pb2.ErrorProto.Code.GRPC_STATUS:
+    elif code == type_pb.ErrorProto.Code.IO_ERROR:
+        raise IoError(error.details)
+    elif code == type_pb.ErrorProto.Code.GRPC_STATUS:
         raise GrpcStatus(error.details)
-    elif code == base_pb2.ErrorProto.Code.INTERNAL:
+    elif code == type_pb.ErrorProto.Code.INTERNAL:
         raise Internal(error.details)
     else:
         raise SystemError(error.details)
@@ -87,10 +61,11 @@ def __handle_error(error):
 def handle_string_response(string_resp):
     case = string_resp.WhichOneof('either')
     if case == 'error':
-        __handle_error(resp.error)
+        handle_pb_error(string_resp.error)
     else:
         return string_resp.value.value
 
+from marmot.types import Coordinate, Envelope
 def from_value_proto(proto):
     case = proto.WhichOneof("value")
     if case == 'string_value':
@@ -139,4 +114,4 @@ def from_value_proto(proto):
         return proto.null_value
 
     else:
-        pass
+        raise ValueError("unknown ValueProto: case=%s" % case)

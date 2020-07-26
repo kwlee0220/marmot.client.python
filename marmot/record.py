@@ -1,4 +1,4 @@
-from marmot.data_types import *
+from marmot.types import DataType
 from collections import namedtuple, OrderedDict
 
 class ColumnNotFound(Exception):

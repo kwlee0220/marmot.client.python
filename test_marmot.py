@@ -2,7 +2,7 @@ import marmot
 
 marmot.connect('localhost', 15685)
 
-ds = marmot.get_dataset('POI/주유소_가격')
+ds = marmot.get_dataset('교통/철도/링크')
 print(ds)
 print(ds.record_count)
 print(ds.bounds)
@@ -16,6 +16,6 @@ print(ds.bounds)
 #     print(dir)
 
 for rec in ds.read():
-    print(rec)
+    print(rec[0].length, rec[1:])
 
 marmot.disconnect()
