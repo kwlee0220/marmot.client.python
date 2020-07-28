@@ -13,6 +13,7 @@ protoc.main((
     '--grpc_python_out=.',
     'proto/marmot_type.proto',
     'proto/marmot_dataset.proto',
+    'proto/marmot_file.proto',
 ))
 
 if __name__ == '__main__':

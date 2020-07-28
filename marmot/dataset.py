@@ -53,6 +53,8 @@ class DataSet:
     def __getattr__(self, name):
         if name == 'id':
             return self.ds_info.id
+        elif name == 'type':
+            return self.ds_info.type
         elif name == 'record_schema':
             return self.schema
         elif name == 'record_count':
@@ -63,6 +65,8 @@ class DataSet:
                 return Envelope(Coordinate(envl.tl.x, envl.tl.y), Coordinate(envl.br.x, envl.br.y))
             else:
                 return None
+        elif name == 'parameter':
+            return self.ds_info.parameter
         else:
             raise ValueError("unknown attribute: " + name)
 

@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='marmot.dataset.proto',
   syntax='proto3',
   serialized_options=b'\n\024marmot.dataset.protoP\001',
-  serialized_pb=b'\n\x14marmot_dataset.proto\x12\x14marmot.dataset.proto\x1a\x11marmot_type.proto\"\x99\x01\n\x10\x44\x61taSetInfoProto\x12\n\n\x02id\x18\x01 \x01(\t\x12\x15\n\rrecord_schema\x18\x02 \x01(\t\x12\r\n\x05\x63ount\x18\x03 \x01(\x04\x12-\n\x06\x62ounds\x18\x04 \x01(\x0b\x32\x1b.marmot.proto.EnvelopeProtoH\x00\x12\x11\n\tfile_path\x18\x05 \x01(\tB\x11\n\x0foptional_bounds\"\x8a\x01\n\x13\x44\x61taSetInfoResponse\x12>\n\x0c\x64\x61taset_info\x18\x01 \x01(\x0b\x32&.marmot.dataset.proto.DataSetInfoProtoH\x00\x12)\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x18.marmot.proto.ErrorProtoH\x00\x42\x08\n\x06\x65ither\"H\n\x14\x43reateDataSetRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x15\n\rrecord_schema\x18\x02 \x01(\t\x12\r\n\x05\x66orce\x18\x03 \x01(\x08\"5\n\x12MoveDataSetRequest\x12\x0e\n\x06src_id\x18\x01 \x01(\t\x12\x0f\n\x07\x64\x65st_id\x18\x02 \x01(\t\"5\n\x0eMoveDirRequest\x12\x10\n\x08src_path\x18\x01 \x01(\t\x12\x11\n\tdest_path\x18\x02 \x01(\t\"@\n\x18\x44irectoryTraverseRequest\x12\x11\n\tdirectory\x18\x01 \x01(\t\x12\x11\n\trecursive\x18\x02 \x01(\x08*\x1c\n\x10\x44\x61taSetTypeProto\x12\x08\n\x04\x46ILE\x10\x00\x32\x90\n\n\x0e\x44\x61taSetService\x12\x66\n\rcreateDataSet\x12*.marmot.dataset.proto.CreateDataSetRequest\x1a).marmot.dataset.proto.DataSetInfoResponse\x12\x46\n\rdeleteDataSet\x12\x19.marmot.proto.StringProto\x1a\x1a.marmot.proto.BoolResponse\x12\x45\n\x0breadDataSet\x12\x17.marmot.proto.UpMessage\x1a\x19.marmot.proto.DownMessage(\x01\x30\x01\x12I\n\x0creadDataSet2\x12\x19.marmot.proto.StringProto\x1a\x1c.marmot.proto.RecordResponse0\x01\x12\x46\n\x0cwriteDataSet\x12\x17.marmot.proto.UpMessage\x1a\x19.marmot.proto.DownMessage(\x01\x30\x01\x12\x62\n\x0bmoveDataSet\x12(.marmot.dataset.proto.MoveDataSetRequest\x1a).marmot.dataset.proto.DataSetInfoResponse\x12V\n\x0egetDataSetInfo\x12\x19.marmot.proto.StringProto\x1a).marmot.dataset.proto.DataSetInfoResponse\x12Y\n\x11getDataSetInfoAll\x12\x17.marmot.proto.VoidProto\x1a).marmot.dataset.proto.DataSetInfoResponse0\x01\x12u\n\x16getDataSetInfoAllInDir\x12..marmot.dataset.proto.DirectoryTraverseRequest\x1a).marmot.dataset.proto.DataSetInfoResponse0\x01\x12\x66\n\x11updateDataSetInfo\x12&.marmot.dataset.proto.DataSetInfoProto\x1a).marmot.dataset.proto.DataSetInfoResponse\x12\x44\n\tgetDirAll\x12\x17.marmot.proto.VoidProto\x1a\x1c.marmot.proto.StringResponse0\x01\x12^\n\x0cgetSubDirAll\x12..marmot.dataset.proto.DirectoryTraverseRequest\x1a\x1c.marmot.proto.StringResponse0\x01\x12G\n\x0cgetParentDir\x12\x19.marmot.proto.StringProto\x1a\x1c.marmot.proto.StringResponse\x12K\n\x07moveDir\x12$.marmot.dataset.proto.MoveDirRequest\x1a\x1a.marmot.proto.VoidResponse\x12\x42\n\tdeleteDir\x12\x19.marmot.proto.StringProto\x1a\x1a.marmot.proto.VoidResponseB\x18\n\x14marmot.dataset.protoP\x01P\x00\x62\x06proto3'
+  serialized_pb=b'\n\x14marmot_dataset.proto\x12\x14marmot.dataset.proto\x1a\x11marmot_type.proto\"\xcf\x01\n\x10\x44\x61taSetInfoProto\x12\n\n\x02id\x18\x01 \x01(\t\x12\x15\n\rrecord_schema\x18\x02 \x01(\t\x12\x34\n\x04type\x18\x03 \x01(\x0e\x32&.marmot.dataset.proto.DataSetTypeProto\x12\r\n\x05\x63ount\x18\x04 \x01(\x04\x12-\n\x06\x62ounds\x18\x05 \x01(\x0b\x32\x1b.marmot.proto.EnvelopeProtoH\x00\x12\x11\n\tparameter\x18\x06 \x01(\tB\x11\n\x0foptional_bounds\"\x8a\x01\n\x13\x44\x61taSetInfoResponse\x12>\n\x0c\x64\x61taset_info\x18\x01 \x01(\x0b\x32&.marmot.dataset.proto.DataSetInfoProtoH\x00\x12)\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x18.marmot.proto.ErrorProtoH\x00\x42\x08\n\x06\x65ither\"i\n\x14\x43reateDataSetRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x15\n\rrecord_schema\x18\x03 \x01(\t\x12\x11\n\tparameter\x18\x04 \x01(\t\x12\r\n\x05\x66orce\x18\x05 \x01(\x08\"5\n\x12MoveDataSetRequest\x12\x0e\n\x06src_id\x18\x01 \x01(\t\x12\x0f\n\x07\x64\x65st_id\x18\x02 \x01(\t\"5\n\x0eMoveDirRequest\x12\x10\n\x08src_path\x18\x01 \x01(\t\x12\x11\n\tdest_path\x18\x02 \x01(\t\"@\n\x18\x44irectoryTraverseRequest\x12\x11\n\tdirectory\x18\x01 \x01(\t\x12\x11\n\trecursive\x18\x02 \x01(\x08*&\n\x10\x44\x61taSetTypeProto\x12\x08\n\x04\x41VRO\x10\x00\x12\x08\n\x04MQTT\x10\x01\x32\x90\n\n\x0e\x44\x61taSetService\x12\x66\n\rcreateDataSet\x12*.marmot.dataset.proto.CreateDataSetRequest\x1a).marmot.dataset.proto.DataSetInfoResponse\x12\x46\n\rdeleteDataSet\x12\x19.marmot.proto.StringProto\x1a\x1a.marmot.proto.BoolResponse\x12\x45\n\x0breadDataSet\x12\x17.marmot.proto.UpMessage\x1a\x19.marmot.proto.DownMessage(\x01\x30\x01\x12I\n\x0creadDataSet2\x12\x19.marmot.proto.StringProto\x1a\x1c.marmot.proto.RecordResponse0\x01\x12\x46\n\x0cwriteDataSet\x12\x17.marmot.proto.UpMessage\x1a\x19.marmot.proto.DownMessage(\x01\x30\x01\x12\x62\n\x0bmoveDataSet\x12(.marmot.dataset.proto.MoveDataSetRequest\x1a).marmot.dataset.proto.DataSetInfoResponse\x12V\n\x0egetDataSetInfo\x12\x19.marmot.proto.StringProto\x1a).marmot.dataset.proto.DataSetInfoResponse\x12Y\n\x11getDataSetInfoAll\x12\x17.marmot.proto.VoidProto\x1a).marmot.dataset.proto.DataSetInfoResponse0\x01\x12u\n\x16getDataSetInfoAllInDir\x12..marmot.dataset.proto.DirectoryTraverseRequest\x1a).marmot.dataset.proto.DataSetInfoResponse0\x01\x12\x66\n\x11updateDataSetInfo\x12&.marmot.dataset.proto.DataSetInfoProto\x1a).marmot.dataset.proto.DataSetInfoResponse\x12\x44\n\tgetDirAll\x12\x17.marmot.proto.VoidProto\x1a\x1c.marmot.proto.StringResponse0\x01\x12^\n\x0cgetSubDirAll\x12..marmot.dataset.proto.DirectoryTraverseRequest\x1a\x1c.marmot.proto.StringResponse0\x01\x12G\n\x0cgetParentDir\x12\x19.marmot.proto.StringProto\x1a\x1c.marmot.proto.StringResponse\x12K\n\x07moveDir\x12$.marmot.dataset.proto.MoveDirRequest\x1a\x1a.marmot.proto.VoidResponse\x12\x42\n\tdeleteDir\x12\x19.marmot.proto.StringProto\x1a\x1a.marmot.proto.VoidResponseB\x18\n\x14marmot.dataset.protoP\x01P\x00\x62\x06proto3'
   ,
   dependencies=[marmot__type__pb2.DESCRIPTOR,],
   public_dependencies=[marmot__type__pb2.DESCRIPTOR,])
@@ -33,19 +33,24 @@ _DATASETTYPEPROTO = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='FILE', index=0, number=0,
+      name='AVRO', index=0, number=0,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='MQTT', index=1, number=1,
       serialized_options=None,
       type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=612,
-  serialized_end=640,
+  serialized_start=699,
+  serialized_end=737,
 )
 _sym_db.RegisterEnumDescriptor(_DATASETTYPEPROTO)
 
 DataSetTypeProto = enum_type_wrapper.EnumTypeWrapper(_DATASETTYPEPROTO)
-FILE = 0
+AVRO = 0
+MQTT = 1
 
 
 
@@ -71,22 +76,29 @@ _DATASETINFOPROTO = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='count', full_name='marmot.dataset.proto.DataSetInfoProto.count', index=2,
-      number=3, type=4, cpp_type=4, label=1,
+      name='type', full_name='marmot.dataset.proto.DataSetInfoProto.type', index=2,
+      number=3, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='bounds', full_name='marmot.dataset.proto.DataSetInfoProto.bounds', index=3,
-      number=4, type=11, cpp_type=10, label=1,
+      name='count', full_name='marmot.dataset.proto.DataSetInfoProto.count', index=3,
+      number=4, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='bounds', full_name='marmot.dataset.proto.DataSetInfoProto.bounds', index=4,
+      number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='file_path', full_name='marmot.dataset.proto.DataSetInfoProto.file_path', index=4,
-      number=5, type=9, cpp_type=9, label=1,
+      name='parameter', full_name='marmot.dataset.proto.DataSetInfoProto.parameter', index=5,
+      number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -107,7 +119,7 @@ _DATASETINFOPROTO = _descriptor.Descriptor(
       index=0, containing_type=None, fields=[]),
   ],
   serialized_start=66,
-  serialized_end=219,
+  serialized_end=273,
 )
 
 
@@ -147,8 +159,8 @@ _DATASETINFORESPONSE = _descriptor.Descriptor(
       name='either', full_name='marmot.dataset.proto.DataSetInfoResponse.either',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=222,
-  serialized_end=360,
+  serialized_start=276,
+  serialized_end=414,
 )
 
 
@@ -167,15 +179,29 @@ _CREATEDATASETREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='record_schema', full_name='marmot.dataset.proto.CreateDataSetRequest.record_schema', index=1,
+      name='type', full_name='marmot.dataset.proto.CreateDataSetRequest.type', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='force', full_name='marmot.dataset.proto.CreateDataSetRequest.force', index=2,
-      number=3, type=8, cpp_type=7, label=1,
+      name='record_schema', full_name='marmot.dataset.proto.CreateDataSetRequest.record_schema', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='parameter', full_name='marmot.dataset.proto.CreateDataSetRequest.parameter', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='force', full_name='marmot.dataset.proto.CreateDataSetRequest.force', index=4,
+      number=5, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -192,8 +218,8 @@ _CREATEDATASETREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=362,
-  serialized_end=434,
+  serialized_start=416,
+  serialized_end=521,
 )
 
 
@@ -230,8 +256,8 @@ _MOVEDATASETREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=436,
-  serialized_end=489,
+  serialized_start=523,
+  serialized_end=576,
 )
 
 
@@ -268,8 +294,8 @@ _MOVEDIRREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=491,
-  serialized_end=544,
+  serialized_start=578,
+  serialized_end=631,
 )
 
 
@@ -306,10 +332,11 @@ _DIRECTORYTRAVERSEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=546,
-  serialized_end=610,
+  serialized_start=633,
+  serialized_end=697,
 )
 
+_DATASETINFOPROTO.fields_by_name['type'].enum_type = _DATASETTYPEPROTO
 _DATASETINFOPROTO.fields_by_name['bounds'].message_type = marmot__type__pb2._ENVELOPEPROTO
 _DATASETINFOPROTO.oneofs_by_name['optional_bounds'].fields.append(
   _DATASETINFOPROTO.fields_by_name['bounds'])
@@ -382,8 +409,8 @@ _DATASETSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=643,
-  serialized_end=1939,
+  serialized_start=740,
+  serialized_end=2036,
   methods=[
   _descriptor.MethodDescriptor(
     name='createDataSet',
